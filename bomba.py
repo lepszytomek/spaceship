@@ -7,7 +7,7 @@ class Bomba(object):
         self.game = game
         self.czas_do_wybuch = 500.0
         self.pos = Vector2()
-        self.obszar_wybuchu = 100
+        self.obszar_wybuchu = 50
         self.jest_bomba = False
 
     def stawianie_bomby(self):
