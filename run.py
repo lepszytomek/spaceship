@@ -14,7 +14,9 @@ class Game(object):
         #initianizacion
 
         pygame.init()
-        self.screen = pygame.display.set_mode((1280, 720))
+        self.screen_x = 1280
+        self.screen_y = 720
+        self.screen = pygame.display.set_mode((self.screen_x, self.screen_y))
         self.tps_clock = pygame.time.Clock()
         self.tps_delta = 0.0
         self.bomba = Bomba(self)
