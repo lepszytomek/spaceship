@@ -52,6 +52,10 @@ class Game(object):
     def draw(self):
         for bomba in self.bomba.bomby:
             self.bomba.draw_bomba(bomba)
+        for wybych in self.bomba.wybuchy:
+            if wybych[1] >= 0:
+                self.bomba.draw_explosion(wybych[0])
+                wybych[1]-=1
         self.player.draw()
 if __name__ == "__main__":
     Game()

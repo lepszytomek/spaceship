@@ -9,6 +9,8 @@ class Bomba(object):
         self.obszar_wybuchu = 100
         self.limit_bomb = 3
         self.bomby = []
+        self.czas_animacji = 25
+        self.wybuchy =[]
 
     def stawianie_bomby(self):
         pos = Vector2(self.game.player.pos)
@@ -19,6 +21,7 @@ class Bomba(object):
             for bomba in self.bomby:
                 if bomba[1] <= 0:
                     pos = self.game.player.pos - bomba[0]
+                    self.wybuchy.append([bomba[0], self.czas_animacji])
                     pos.x = abs(pos.x)
                     pos.y = abs(pos.y)
                     self.bomby = self.bomby[1:]
@@ -32,6 +35,12 @@ class Bomba(object):
         pos = (int(bomba[0].x), int(bomba[0].y))
         pygame.draw.circle(self.game.screen, (255, 0, 0), pos, self.obszar_wybuchu)
         pygame.draw.circle(self.game.screen, (102, 255, 135), pos, 10)
+
+    def draw_explosion(self, pos):
+        pos = (int(pos.x), int(pos.y))
+        pygame.draw.circle(self.game.screen, (102, 255, 135), pos, self.obszar_wybuchu)
+
+
 
     def handlet_event(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
