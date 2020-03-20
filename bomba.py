@@ -5,7 +5,7 @@ class Bomba(object):
 
     def __init__(self, game):
         self.game = game
-        self.czas_do_wybuch = 500.0
+        self.czas_do_wybuch = 250.0
         self.obszar_wybuchu = 100
         self.limit_bomb = 3
         self.bomby = []
@@ -14,11 +14,12 @@ class Bomba(object):
 
     def stawianie_bomby(self):
         pos = Vector2(self.game.player.pos)
-        self.bomby.append([pos, self.czas_do_wybuch])
+        self.bomby.append([pos, self.czas_do_wybuch, 0])
 
 
     def tick(self):
             for bomba in self.bomby:
+                bomba[2]+=1
                 if bomba[1] <= 0:
                     pos = self.game.player.pos - bomba[0]
                     self.wybuchy.append([bomba[0], self.czas_animacji])
@@ -34,7 +35,8 @@ class Bomba(object):
     def draw_bomba(self, bomba):
         pos = (int(bomba[0].x), int(bomba[0].y))
         pygame.draw.circle(self.game.screen, (255, 0, 0), pos, self.obszar_wybuchu)
-        pygame.draw.circle(self.game.screen, (102, 255, 135), pos, 10)
+        pygame.draw.circle(self.game.screen, (102, 255, 135), pos, int(self.czas_do_wybuch/10))
+        pygame.draw.circle(self.game.screen, (0, 0, 0), pos, int(bomba[2]/10))
 
     def draw_explosion(self, pos):
         pos = (int(pos.x), int(pos.y))
