@@ -5,8 +5,9 @@ class Bomba(object):
 
     def __init__(self, game):
         self.game = game
-        self.czas_do_wybuch = 250.0
+        self.czas_do_wybuch = 500.0
         self.obszar_wybuchu = 100
+        self.limit_bomb = 3
         self.bomby = []
 
     def stawianie_bomby(self):
@@ -34,5 +35,6 @@ class Bomba(object):
 
     def handlet_event(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            self.stawianie_bomby()
+            if len(self.bomby) >= self.limit_bomb:
+                self.stawianie_bomby()
 
