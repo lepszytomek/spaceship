@@ -50,8 +50,8 @@ class Game(object):
         self.bomba.tick()
 
     def draw(self):
-        if self.bomba.jest_bomba:
-            self.bomba.draw_bomba()
+        for bomba in self.bomba.bomby:
+            self.bomba.draw_bomba(bomba)
         self.player.draw()
 if __name__ == "__main__":
     Game()
