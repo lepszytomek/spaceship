@@ -36,13 +36,13 @@ class Rocket(object):
         self.pos += self.vel
         self.acc *= 0
         if self.pos[0] >= self.game.screen_x:
-            self.pos[0] = self.game.screen_x
-        if self.pos[1] >= self.game.screen_y:
-            self.pos[1] = self.game.screen_y
-        if self.pos[0] < 0:
             self.pos[0] = 0
-        if self.pos[1] < 0:
+        if self.pos[1] >= self.game.screen_y:
             self.pos[1] = 0
+        if self.pos[0] < 0:
+            self.pos[0] = self.game.screen_x
+        if self.pos[1] < 0:
+            self.pos[1] = self.game.screen_y
 
     def draw(self):
         # trójkąt
