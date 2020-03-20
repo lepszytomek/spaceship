@@ -4,6 +4,7 @@ import pygame, sys
 
 from rocket import Rocket
 from bomba import Bomba
+from bullet import Bullet
 
 class Game(object):
 
@@ -21,6 +22,7 @@ class Game(object):
         self.tps_delta = 0.0
         self.bomba = Bomba(self)
         self.player = Rocket(self)
+        self.bullet = Bullet(self)
 
         while True:
             # manewrowanie oknem
