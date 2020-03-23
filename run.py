@@ -33,7 +33,6 @@ class Game(object):
                     sys.exit(0)
                 else:
                     self.bomba.handlet_event(event)
-                    self.bullet.handlet_event(event)
 
 
             # Tykanie

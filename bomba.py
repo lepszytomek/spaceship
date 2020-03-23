@@ -45,7 +45,7 @@ class Bomba(object):
 
 
     def handlet_event(self, event):
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
             if len(self.bomby) < self.limit_bomb:
                 self.stawianie_bomby()
 

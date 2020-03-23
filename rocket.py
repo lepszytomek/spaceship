@@ -29,6 +29,7 @@ class Rocket(object):
             self.add_force(Vector2(-self.speed,0))
         if pressed[pygame.K_d]:
             self.add_force(Vector2(self.speed,0))
+        self.game.bullet.handlet_event(pressed)
         # fizyka
         self.vel*=0.8
       #  self.vel-=Vector2(0,-self.gravity)
