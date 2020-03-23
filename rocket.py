@@ -5,7 +5,7 @@ class Rocket(object):
 
     def __init__(self, game):
         self.game = game
-        self.speed = 1.3
+        self.speed = 0.6
         self.gravity = 0.5
 
         size = self.game.screen.get_size()
