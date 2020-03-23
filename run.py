@@ -20,7 +20,8 @@ class Game(object):
         self.screen = pygame.display.set_mode((self.screen_x, self.screen_y))
         self.tps_clock = pygame.time.Clock()
         self.tps_delta = 0.0
-        self.bomba = Bomba(self)
+        self.bomby = []
+        self.limit_bomb=3
         self.player = Rocket(self)
         self.bullet = Bullet(self)
 
@@ -31,9 +32,10 @@ class Game(object):
                     sys.exit(0)
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     sys.exit(0)
-                else:
-                    self.bomba.handlet_event(event)
-                    self.bullet.handlet_event(event)
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
+                    if len(self.bomby) < self.limit_bomb:
+                        self.bomby.append(Bomba(self,))
+
 
 
             # Tykanie
@@ -50,15 +52,14 @@ class Game(object):
 
     def tick(self):
         self.player.tick()
-        self.bomba.tick()
+        i=0
+        for bomba in self.bomby:
+            if bomba.tick():
+                self.bomby=self.bomby[:i] + self.bomby[i+1:]
         self.bullet.tick()
     def draw(self):
-        for bomba in self.bomba.bomby:
-            self.bomba.draw_bomba(bomba)
-        for wybych in self.bomba.wybuchy:
-            if wybych[1] >= 0:
-                self.bomba.draw_explosion(wybych[0])
-                wybych[1]-=1
+        for bomba in self.bomby:
+            bomba.draw_bomba()
         self.player.draw()
         self.bullet.draw_bullet()
 if __name__ == "__main__":
