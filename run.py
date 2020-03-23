@@ -33,6 +33,7 @@ class Game(object):
                     sys.exit(0)
                 else:
                     self.bomba.handlet_event(event)
+                    self.bullet.handlet_event(event)
 
 
             # Tykanie
@@ -50,7 +51,7 @@ class Game(object):
     def tick(self):
         self.player.tick()
         self.bomba.tick()
-
+        self.bullet.tick()
     def draw(self):
         for bomba in self.bomba.bomby:
             self.bomba.draw_bomba(bomba)
@@ -59,6 +60,7 @@ class Game(object):
                 self.bomba.draw_explosion(wybych[0])
                 wybych[1]-=1
         self.player.draw()
+        self.bullet.draw_bullet()
 if __name__ == "__main__":
     Game()
 

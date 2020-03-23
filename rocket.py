@@ -13,6 +13,7 @@ class Rocket(object):
         self.pos = Vector2(size[0]/2,size[1]/2)
         self.vel = Vector2(0,0)
         self.acc = Vector2(0,0)
+        self.angel = 0.0
 
     def add_force(self, force):
         self.acc += force
@@ -48,8 +49,8 @@ class Rocket(object):
         # trójkąt
         points=[Vector2(0,-10), Vector2(5,5), Vector2(-5,5)]
         # obracanie trójkąta w kierunku lotu
-        angel = self.vel.angle_to(Vector2(0,1))
-        points = [p.rotate(angel) for p in points]
+        self.angel = self.vel.angle_to(Vector2(0,1))
+        points = [p.rotate(self.angel) for p in points]
         #naprawa osi y
         points = [Vector2(p.x,p.y*-1) for p in points]
 
