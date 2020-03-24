@@ -17,8 +17,6 @@ class Game(object):
         self.screen_x = 1280
         self.screen_y = 720
         self.screen = pygame.display.set_mode((self.screen_x, self.screen_y))
-        self.bomby = []
-        self.limit_bomb=3
         self.buletts=[]
         self.cold_down = 100
         self.i = self.cold_down
@@ -34,14 +32,12 @@ class Game(object):
                         sys.exit(0)
                     elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                         sys.exit(0)
-                    if player.klawisze:
-                        if event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
-                            if len(self.bomby) < self.limit_bomb:
-                                self.bomby.append(Bomba(self, player=player))
-                    else:
-                        if event.type == pygame.KEYDOWN and event.key == pygame.K_RSHIFT:
-                            if len(self.bomby) < self.limit_bomb:
-                                self.bomby.append(Bomba(self, player=player))
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
+                        if len(self.players[0].bomby) < self.players[0].limit_bomb:
+                            self.players[0].bomby.append(Bomba(self, player=self.players[0]))
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_RALT:
+                        if len(self.players[1].bomby) < self.players[1].limit_bomb:
+                            self.players[1].bomby.append(Bomba(self, player=self.players[1]))
 
 
                 # Tykanie
@@ -70,23 +66,24 @@ class Game(object):
             elif self.i < self.cold_down:
                 self.i += 1
 
-        for bomba in self.bomby:
+        for bomba in player.bomby:
             if bomba.tick():
                 bomba.wybuch=5
         for bullet in self.buletts:
             if bullet.tick():
                 self.buletts.remove(bullet)
     def draw(self):
-        for bomba in self.bomby:
-            if bomba.wybuch>0:
-                if bomba.draw_explosion():
-                    self.bomby.remove(bomba)
-            else:
-                bomba.draw_bomba()
-
-        for bullet in self.buletts:
-            bullet.draw_bullet()
         for player in self.players:
+            for bomba in player.bomby:
+                if bomba.wybuch>0:
+                    if bomba.draw_explosion():
+                        player.bomby.remove(bomba)
+                else:
+                    bomba.draw_bomba()
+
+            for bullet in self.buletts:
+                bullet.draw_bullet()
+
             player.draw()
 
 if __name__ == "__main__":

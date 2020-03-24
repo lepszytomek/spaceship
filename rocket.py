@@ -12,6 +12,8 @@ class Rocket(object):
         self.tps_clock = pygame.time.Clock()
         self.tps_delta = 0.0
 
+        self.limit_bomb=3
+        self.bomby = []
         self.pos = pos
         self.vel = Vector2(0,0)
         self.acc = Vector2(0,0)
