@@ -29,7 +29,7 @@ class Rocket(object):
             self.add_force(Vector2(-self.speed,0))
         if pressed[pygame.K_d]:
             self.add_force(Vector2(self.speed,0))
-        self.game.bullet.handlet_event(pressed)
+
         # fizyka
         self.vel*=0.8
       #  self.vel-=Vector2(0,-self.gravity)
@@ -45,7 +45,7 @@ class Rocket(object):
             self.pos[0] = self.game.screen_x
         if self.pos[1] < 0:
             self.pos[1] = self.game.screen_y
-
+        return pressed
     def draw(self):
         # trójkąt
         points=[Vector2(0,-10), Vector2(5,5), Vector2(-5,5)]

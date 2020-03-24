@@ -23,7 +23,9 @@ class Game(object):
         self.bomby = []
         self.limit_bomb=3
         self.player = Rocket(self)
-        self.bullet = Bullet(self)
+        self.buletts=[]
+        self.cold_down = 30
+        self.i = self.cold_down
 
         while True:
             # manewrowanie oknem
@@ -34,8 +36,7 @@ class Game(object):
                     sys.exit(0)
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
                     if len(self.bomby) < self.limit_bomb:
-                        self.bomby.append(Bomba(self,))
-
+                        self.bomby.append(Bomba(self))
 
 
             # Tykanie
@@ -51,12 +52,19 @@ class Game(object):
             #time.sleep(5)
 
     def tick(self):
-        self.player.tick()
+        event = self.player.tick()
+        if event[pygame.K_SPACE] and self.i >= self.cold_down:
+            self.i -= self.cold_down
+            self.buletts.append(Bullet(self, pygame.math.Vector2(self.player.pos.x, self.player.pos.y)))
+        elif self.i < self.cold_down:
+            self.i += 1
+
         for bomba in self.bomby:
             if bomba.tick():
                 bomba.wybuch=5
-
-        self.bullet.tick()
+        for bullet in self.buletts:
+            if bullet.tick():
+                self.buletts.remove(bullet)
     def draw(self):
         for bomba in self.bomby:
             if bomba.wybuch>0:
@@ -64,8 +72,12 @@ class Game(object):
                     self.bomby.remove(bomba)
             else:
                 bomba.draw_bomba()
+
+        for bullet in self.buletts:
+            bullet.draw_bullet()
+
         self.player.draw()
-        self.bullet.draw_bullet()
+
 if __name__ == "__main__":
     Game()
 
