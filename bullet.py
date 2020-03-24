@@ -5,7 +5,7 @@ from pygame.rect import Rect
 
 class Bullet(object):
 
-    def __init__(self, game, pos, player,szybkosc=4):
+    def __init__(self, game, pos, player,szybkosc=2):
         self.game = game
         self.szybkosc = szybkosc
         self.vel = Vector2(0, self.szybkosc)
