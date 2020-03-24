@@ -21,6 +21,7 @@ class Game(object):
         self.tps_clock = pygame.time.Clock()
         self.tps_delta = 0.0
         self.bomby = []
+        self.wybuchy = []
         self.limit_bomb=3
         self.player = Rocket(self)
         self.bullet = Bullet(self)
@@ -55,13 +56,23 @@ class Game(object):
         i=0
         for bomba in self.bomby:
             if bomba.tick():
+                self.wybuchy.append(bomba.czas_animacji)
                 self.bomby=self.bomby[:i] + self.bomby[i+1:]
+
         self.bullet.tick()
     def draw(self):
         for bomba in self.bomby:
             bomba.draw_bomba()
+        for wybuch in self.wybuchy:
+            if wybuch > 0 :
+                self.draw_explosion()
+                wybuch-=1
         self.player.draw()
         self.bullet.draw_bullet()
+    def draw_explosion(self):
+        pos = (int(self.pos.x), int(self.pos.y))
+        pygame.draw.circle(self.game.screen, (102, 255, 135), pos, self.obszar_wybuchu)
+
 if __name__ == "__main__":
     Game()
 

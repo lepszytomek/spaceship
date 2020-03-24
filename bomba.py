@@ -33,7 +33,4 @@ class Bomba(object):
         pygame.draw.circle(self.game.screen, (102, 255, 135), pos, int(self.max_czas_do_wybuchu/10))
         pygame.draw.circle(self.game.screen, (0, 0, 0), pos, int(self.animacja_czasu/10))
 
-    def draw_explosion(self, pos):
-        pos = (int(pos.x), int(pos.y))
-        pygame.draw.circle(self.game.screen, (102, 255, 135), pos, self.obszar_wybuchu)
 
