@@ -3,21 +3,21 @@ from pygame.math import Vector2
 
 class Bomba(object):
 
-    def __init__(self, game, czas_do_wybuch = 250.0, obszar_wybuchu = 100, czas_animacji = 25):
+    def __init__(self, game, player, czas_do_wybuch = 250.0, obszar_wybuchu = 100, czas_animacji = 25):
         self.game = game
         self.max_czas_do_wybuchu = czas_do_wybuch
         self.czas_do_wybuch = czas_do_wybuch
         self.obszar_wybuchu = obszar_wybuchu
         self.czas_animacji = czas_animacji
         self.animacja_czasu = 0
-        self.pos = Vector2(game.player.pos)
+        self.pos = Vector2(player.pos)
         self.wybuch = 0
-
+        self.player = player
 
     def tick(self):
             self.animacja_czasu+=1
             if self.czas_do_wybuch <= 0:
-                pos = self.game.player.pos - self.pos
+                pos = self.player.pos - self.pos
                 pos.x = abs(pos.x)
                 pos.y = abs(pos.y)
                 if pos.x < self.obszar_wybuchu and pos.y < self.obszar_wybuchu:

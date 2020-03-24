@@ -5,12 +5,13 @@ from pygame.rect import Rect
 
 class Bullet(object):
 
-    def __init__(self, game, pos,szybkosc=4):
+    def __init__(self, game, pos, player,szybkosc=4):
         self.game = game
         self.szybkosc = szybkosc
         self.vel = Vector2(0, self.szybkosc)
-        self.vel = pygame.math.Vector2.rotate(self.vel, -self.game.player.angel)
+        self.vel = pygame.math.Vector2.rotate(self.vel, -player.angel)
         self.pos = pos
+        self.player=player
 
     def draw_bullet(self):
         pygame.draw.rect(self.game.screen, (0,255,0), Rect(self.pos, (10, 10)))

@@ -3,17 +3,18 @@ from pygame.math import Vector2
 
 class Rocket(object):
 
-    def __init__(self, game):
+    def __init__(self, game, speed = 0.6, gravity = 0.5, pos=0, color=(0, 100,255), klawisze=['w','s','a','d','LSHIFT','SPACE']):
         self.game = game
-        self.speed = 0.6
-        self.gravity = 0.5
-
+        self.speed = speed
+        self.gravity = gravity
         size = self.game.screen.get_size()
 
         self.pos = Vector2(size[0]/2,size[1]/2)
         self.vel = Vector2(0,0)
         self.acc = Vector2(0,0)
         self.angel = 0.0
+        self.color = color
+        self.klawisze = klawisze
 
     def add_force(self, force):
         self.acc += force
@@ -58,7 +59,7 @@ class Rocket(object):
         # pozycja
         points=[self.pos+p*4 for p in points]
         # rysowańsko
-        pygame.draw.polygon(self.game.screen, (0, 100,255), points)
+        pygame.draw.polygon(self.game.screen, self.color, points)
 
 
 

@@ -22,11 +22,10 @@ class Game(object):
         self.tps_delta = 0.0
         self.bomby = []
         self.limit_bomb=3
-        self.player = Rocket(self)
         self.buletts=[]
         self.cold_down = 30
         self.i = self.cold_down
-
+        self.players = [Rocket(self)]
         while True:
             # manewrowanie oknem
             for event in pygame.event.get():
@@ -36,26 +35,26 @@ class Game(object):
                     sys.exit(0)
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
                     if len(self.bomby) < self.limit_bomb:
-                        self.bomby.append(Bomba(self))
+                        self.bomby.append(Bomba(self, player=player))
 
+            for player in self.players:
+                # Tykanie
+                self.tps_delta += self.tps_clock.tick() / 1000.0
+                while self.tps_delta > 1 / self.tps_max:
+                    self.tick(player)
+                    self.tps_delta -= 1 / self.tps_max
 
-            # Tykanie
-            self.tps_delta += self.tps_clock.tick() / 1000.0
-            while self.tps_delta > 1 / self.tps_max:
-                self.tick()
-                self.tps_delta -= 1 / self.tps_max
+                # drowing
+                self.screen.fill((0, 0, 0))
+                self.draw(player)
+                pygame.display.flip()
+                #time.sleep(5)
 
-            # drowing
-            self.screen.fill((0, 0, 0))
-            self.draw()
-            pygame.display.flip()
-            #time.sleep(5)
-
-    def tick(self):
-        event = self.player.tick()
+    def tick(self, player):
+        event = player.tick()
         if event[pygame.K_SPACE] and self.i >= self.cold_down:
             self.i -= self.cold_down
-            self.buletts.append(Bullet(self, pygame.math.Vector2(self.player.pos.x, self.player.pos.y)))
+            self.buletts.append(Bullet(self, pygame.math.Vector2(player.pos.x, player.pos.y), player))
         elif self.i < self.cold_down:
             self.i += 1
 
@@ -65,7 +64,7 @@ class Game(object):
         for bullet in self.buletts:
             if bullet.tick():
                 self.buletts.remove(bullet)
-    def draw(self):
+    def draw(self, player):
         for bomba in self.bomby:
             if bomba.wybuch>0:
                 if bomba.draw_explosion():
@@ -76,7 +75,7 @@ class Game(object):
         for bullet in self.buletts:
             bullet.draw_bullet()
 
-        self.player.draw()
+        player.draw()
 
 if __name__ == "__main__":
     Game()
