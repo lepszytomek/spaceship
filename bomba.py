@@ -11,7 +11,7 @@ class Bomba(object):
         self.czas_animacji = czas_animacji
         self.animacja_czasu = 0
         self.pos = Vector2(game.player.pos)
-
+        self.wybuch = 0
 
 
     def tick(self):
@@ -34,3 +34,11 @@ class Bomba(object):
         pygame.draw.circle(self.game.screen, (0, 0, 0), pos, int(self.animacja_czasu/10))
 
 
+    def draw_explosion(self):
+        self.wybuch-=1
+        pos = (int(self.pos.x), int(self.pos.y))
+        pygame.draw.circle(self.game.screen, (102, 255, 135), pos, self.obszar_wybuchu)
+        if self.wybuch == 0:
+            return True
+        else:
+            return False
