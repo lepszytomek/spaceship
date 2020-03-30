@@ -14,8 +14,8 @@ class Game(object):
         #initianizacion
 
         pygame.init()
-        self.screen_x = 1280
-        self.screen_y = 720
+        self.screen_x = 1920
+        self.screen_y = 1080
         self.screen = pygame.display.set_mode((self.screen_x, self.screen_y))
         self.buletts=[]
         self.cold_down = 100
@@ -23,7 +23,7 @@ class Game(object):
         size = self.screen.get_size()
 
         self.players = [Rocket(self, pos=Vector2(size[0], size[1])),
-                        Rocket(self, color=(255, 0, 0), pos=Vector2(size[0]/4, size[1]/4),klawisze=False)]
+                        Rocket(self, color=(0, 255, 0), pos=Vector2(size[0]/4, size[1]/4),klawisze=False)]
         while True:
             # manewrowanie oknem
             for player in self.players:
@@ -35,7 +35,7 @@ class Game(object):
                     elif event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
                         if len(self.players[0].bomby) < self.players[0].limit_bomb:
                             self.players[0].bomby.append(Bomba(self, player=self.players[0]))
-                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_RALT:
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_RSHIFT:
                         if len(self.players[1].bomby) < self.players[1].limit_bomb:
                             self.players[1].bomby.append(Bomba(self, player=self.players[1]))
 
@@ -83,7 +83,7 @@ class Game(object):
 
             for bullet in self.buletts:
                 bullet.draw_bullet()
-
+        for player in self.players:
             player.draw()
 
 if __name__ == "__main__":
