@@ -20,7 +20,7 @@ class Bomba(object):
                 pos = player.pos - self.pos
                 pos.x = abs(pos.x)
                 pos.y = abs(pos.y)
-                if pos.x < self.obszar_wybuchu and dssssssdawpos.y < self.obszar_wybuchu:
+                if pos.x < self.obszar_wybuchu and pos.y < self.obszar_wybuchu:
                     print("bomb kill you. Player", player.numer, 'lose')
                     sys.exit(0)
                 return True

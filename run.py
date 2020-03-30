@@ -14,8 +14,8 @@ class Game(object):
         #initianizacion
 
         pygame.init()
-        self.screen_x = 1920
-        self.screen_y = 1080
+        self.screen_x = 1024
+        self.screen_y = 738
         self.screen = pygame.display.set_mode((self.screen_x, self.screen_y))
         self.buletts=[]
         self.cold_down = 80
