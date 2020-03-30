@@ -3,7 +3,7 @@ from pygame.math import Vector2
 
 class Rocket(object):
 
-    def __init__(self, game, speed = 0.6, gravity = 0.5, pos=0, color=(0, 100,255), klawisze=True):
+    def __init__(self, game, speed = 0.8, gravity = 0.5, pos=0, color=(0, 100,255), klawisze=True):
         self.game = game
         self.speed = speed
         self.gravity = gravity
@@ -20,6 +20,12 @@ class Rocket(object):
         self.angel = 0.0
         self.color = color
         self.klawisze = klawisze
+        if klawisze:
+            self.numer = 1
+        else:
+            self.numer = 2
+
+
 
     def add_force(self, force):
         self.acc += force

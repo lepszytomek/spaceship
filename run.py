@@ -18,12 +18,12 @@ class Game(object):
         self.screen_y = 1080
         self.screen = pygame.display.set_mode((self.screen_x, self.screen_y))
         self.buletts=[]
-        self.cold_down = 100
+        self.cold_down = 80
         self.i = self.cold_down
         size = self.screen.get_size()
 
         self.players = [Rocket(self, pos=Vector2(size[0], size[1])),
-                        Rocket(self, color=(0, 255, 0), pos=Vector2(size[0]/4, size[1]/4),klawisze=False)]
+                        Rocket(self, color=(0, 200, 0), pos=Vector2(size[0]/4, size[1]/4),klawisze=False)]
         while True:
             # manewrowanie oknem
             for player in self.players:
@@ -67,15 +67,17 @@ class Game(object):
                 self.i += 1
 
         for bomba in player.bomby:
-            if bomba.tick():
-                bomba.wybuch=5
+                for player in self.players:
+                    if bomba.tick(player):
+                        bomba.wybuch=5
         for bullet in self.buletts:
-            if bullet.tick():
-                self.buletts.remove(bullet)
+            if bullet.player.numer != player.numer:
+                if bullet.tick(player):
+                    self.buletts.remove(bullet)
     def draw(self):
         for player in self.players:
             for bomba in player.bomby:
-                if bomba.wybuch>0:
+                if bomba.wybuch > 0:
                     if bomba.draw_explosion():
                         player.bomby.remove(bomba)
                 else:

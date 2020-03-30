@@ -5,7 +5,7 @@ from pygame.rect import Rect
 
 class Bullet(object):
 
-    def __init__(self, game, pos, player,szybkosc=2):
+    def __init__(self, game, pos, player,szybkosc=3):
         self.game = game
         self.szybkosc = szybkosc
         self.vel = Vector2(0, self.szybkosc)
@@ -15,23 +15,15 @@ class Bullet(object):
 
     def draw_bullet(self):
         pygame.draw.rect(self.game.screen, (0,255,0), Rect(self.pos, (10, 10)))
-    def tick(self):
-        if self.pos.x >= self.game.screen_x or self.pos.y >= self.game.screen_y or self.pos.y < 0 or self.pos.x < 0:
+    def tick(self, player):
+        if self.game.screen.get_at((int(self.pos.x), int(self.pos.y)))[:3] == player.color:
+            print('Bullet kill you. Player', player.numer, 'lose')
+            sys.exit(0)
+        if self.pos.x >= self.game.screen_x-2 or self.pos.y >= self.game.screen_y-2 or self.pos.y < 2 or self.pos.x < 2:
             return True
         else:
             self.pos+=self.vel
             return False
-'''        
-
-        if self.pos.x == self.game.player.pos.x or self.pos.y == self.game.player.pos.y:
-            if not pocisk[2]:
-                print('bullet kill you')
-                sys.exit(0)
-        else:
-            pocisk[2] = False
-'''
-
-
 
 
 

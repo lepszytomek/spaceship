@@ -14,14 +14,14 @@ class Bomba(object):
         self.wybuch = 0
         self.player = player
 
-    def tick(self):
+    def tick(self, player):
             self.animacja_czasu+=1
             if self.czas_do_wybuch <= 0:
-                pos = self.player.pos - self.pos
+                pos = player.pos - self.pos
                 pos.x = abs(pos.x)
                 pos.y = abs(pos.y)
-                if pos.x < self.obszar_wybuchu and pos.y < self.obszar_wybuchu:
-                    print("bomb kill you")
+                if pos.x < self.obszar_wybuchu and dssssssdawpos.y < self.obszar_wybuchu:
+                    print("bomb kill you. Player", player.numer, 'lose')
                     sys.exit(0)
                 return True
             else:
